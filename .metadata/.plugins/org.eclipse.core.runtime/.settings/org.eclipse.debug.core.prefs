@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="s.charAt(l)"/>\n<expression enabled\="true" text\="s.charAt(r)"/>\n<expression enabled\="true" text\="s"/>\n<expression enabled\="true" text\="longestP"/>\n<expression enabled\="true" text\="subString"/>\n</watchExpressions>\n

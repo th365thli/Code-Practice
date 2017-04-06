@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Problems.Solution&apos; to &apos;AddTwoNumbersLinkedList&apos;&#x0A;- Original project: &apos;Interview Practice&apos;&#x0A;- Original element: &apos;Problems.Solution&apos;&#x0A;- Renamed element: &apos;Problems.AddTwoNumbersLinkedList&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Solution&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;Problems{Solution.java[Solution" matchStrategy="1" name="AddTwoNumbersLinkedList" qualified="false" references="true" similarDeclarations="false" stamp="1491520402807" textual="false" version="1.0"/>
+</session>

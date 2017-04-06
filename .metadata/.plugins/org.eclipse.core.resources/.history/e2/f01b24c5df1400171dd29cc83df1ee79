@@ -1,0 +1,23 @@
+package Problems;
+
+public class Main {
+	
+	public static void main(String args[]) {
+		Solution sol = new Solution();
+		ListNode n1 = new ListNode(2);
+		ListNode n2 = new ListNode(3);
+		n1.next = n2;
+		
+		ListNode x1 = new ListNode(1);
+		ListNode x2 = new ListNode(1);
+		x1.next = x2;
+		
+		ListNode sumNode = sol.addTwoNumbers(x1, n1);
+		
+		while (sumNode != null) {
+			System.out.println(sumNode.val);
+			sumNode = sumNode.next;
+		}
+	}
+
+}
