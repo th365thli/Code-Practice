@@ -1,7 +1,7 @@
 package Problems;
 
 public class LongestPalindrome {
-	public static String longestPalindrome(String s) {
+	public static String longestPalindromeExpandCenter(String s) {
 
 		if (s.length() == 1) {
 			return s;
@@ -35,8 +35,59 @@ public class LongestPalindrome {
 		return r-l-1;
 	}
 
+	public static String longestPalindromeDP(String s) {
+		String reverse = reverseString(s);
+		char[] rArray = reverse.toCharArray();
+		char[] sArray = s.toCharArray();
+		int sindex= -1;
+		int mostCount = 0;
+		int[][] dp = new int[s.length()][s.length()];
+		String longestP = "";
+
+		for (int i = 0; i < dp[0].length; i++) {
+			for (int k = 0; k < dp[0].length; k ++) {
+				if (rArray[i] == sArray[k]) {
+					if (i==0 || k == 0) {
+						dp[i][k] = 1;
+					} else {
+						dp[i][k] = dp[i-1][k-1] + 1;
+					}
+					if (dp[i][k] > mostCount) {
+						sindex = k;
+						mostCount = dp[i][k];
+						String substring = s.substring(sindex - (mostCount - 1), sindex+1);
+						if (checkPalindrome(substring)) {
+							longestP = substring;
+						}
+					}
+				}
+			}
+		}
+		return longestP;
+	}
+
+	public static boolean checkPalindrome(String s) {
+		char[] sArray = s.toCharArray();
+		for (int i = 0; i < sArray.length/2; i++) {
+			if (sArray[i] != sArray[sArray.length-i-1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static String reverseString(String s) {
+		char[] sArray = s.toCharArray();
+		for (int i = 0; i < s.length()/2; i++) {
+			char temp = s.charAt(s.length()-i-1);
+			sArray[sArray.length-i-1] = s.charAt(i);
+			sArray[i] = temp;
+		}
+		return new String(sArray);
+	}
+
 	public static void main(String[] args) {
-		String s = "abad";
-		System.out.println(longestPalindrome(s));
+		String s = "banana";
+		System.out.println(longestPalindromeDP(s));
 	}
 }
