@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 public class ThreeSumClosest {
 	public static int threeSumClosest(int[] nums, int target) {
+		if (nums.length < 3) {
+			return target;
+		}
 		Arrays.sort(nums);
 		int closest = nums[0] + nums[1] + nums[2];
 		int diff = Integer.MAX_VALUE;
@@ -14,22 +17,19 @@ public class ThreeSumClosest {
 				if (nums[low] + nums[high] + nums[i] == target) {
 					return target;
 				}
-				while(low<high && nums[low] == nums[low+1]) {
-					low++;
-				}
-				while (low<high && nums[high] == nums[high-1]) {
-					high--;
-				}
+				
 				if (nums[low]+nums[high]+nums[i] > target) {
-					high--;
-				} else {
-					low++;
-				}
-				if (low >= high) {
-					if (target-(nums[low] + nums[high] + nums[i]) < diff) {
-						diff = target-(nums[low] + nums[high] + nums[i]);
+					if (Math.abs(target-(nums[low] + nums[high] + nums[i])) < diff) {
+						diff = Math.abs(target-(nums[low] + nums[high] + nums[i]));
 						closest = nums[low] + nums[high] + nums[i];
 					}
+					high--;
+				} else {
+					if (Math.abs(target-(nums[low] + nums[high] + nums[i])) < diff) {
+						diff = Math.abs(target-(nums[low] + nums[high] + nums[i]));
+						closest = nums[low] + nums[high] + nums[i];
+					}
+					low++;
 				}
 			}
 		}
@@ -37,8 +37,8 @@ public class ThreeSumClosest {
 	}
 	
 	public static void main(String[] args) {
-		int[] test = new int[]{-1,1,2,-4};
-		System.out.println(threeSumClosest(test, 1));
+		int[] test = new int[]{1,1,1,0};
+		System.out.println(threeSumClosest(test, -100));
 	}
 	
 }
