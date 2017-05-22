@@ -1,4 +1,4 @@
-package algorithms;
+package Algorithms;
 
 public class Edge  {
     private final String id;
