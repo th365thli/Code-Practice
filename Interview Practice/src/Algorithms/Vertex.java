@@ -1,4 +1,4 @@
-package algorithms;
+package Algorithms;
 
 public class Vertex {
     final private String id;
