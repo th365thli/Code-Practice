@@ -9,7 +9,7 @@ import java.util.List;
  * Sort the list. Then for each index starting at the beginning, you do TwoSum calculation for the rest of the array
  * -1,-1,0,1,2,4. Start at nums[0] = -1. Then find two numbers in the rest of the array that equals 0-nums[0]
  */
-public class LC15ThreeSum {
+public class LC0015ThreeSum {
 	public static List<List<Integer>> threeSum(int[] nums) {
 		Arrays.sort(nums);
 		List<List<Integer>> sumSet = new ArrayList<List<Integer>>();

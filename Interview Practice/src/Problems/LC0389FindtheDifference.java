@@ -2,7 +2,7 @@ package Problems;
 
 import java.util.Arrays;
 
-public class LC389FindtheDifference {
+public class LC0389FindtheDifference {
 
 	 public char findTheDifference(String s, String t) {
 	        

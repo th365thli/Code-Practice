@@ -1,6 +1,6 @@
 package Problems;
 
-public class LC329LongestIncreasingPathinMatrix {
+public class LC0329LongestIncreasingPathinMatrix {
 
 	public static int[][] dp;
 

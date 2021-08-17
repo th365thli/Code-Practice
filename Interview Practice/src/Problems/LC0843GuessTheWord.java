@@ -3,14 +3,14 @@ package Problems;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LC843GuessTheWord {
+public class LC0843GuessTheWord {
 
 
 	public static String[] wordlist;
 
 
 	public static void findSecretWord(String[] wordlist, Master master) {
-		LC843GuessTheWord.wordlist = wordlist;
+		LC0843GuessTheWord.wordlist = wordlist;
 		int k = 10;
 		int match = 0;
 		int oldMatch = 0;
@@ -18,9 +18,9 @@ public class LC843GuessTheWord {
 		Random rand = new Random();
 		int selection;
 		while (k >= 0) {
-			if (LC843GuessTheWord.wordlist.length > 0) {
-				selection = rand.nextInt(LC843GuessTheWord.wordlist.length);
-				word = LC843GuessTheWord.wordlist[selection];
+			if (LC0843GuessTheWord.wordlist.length > 0) {
+				selection = rand.nextInt(LC0843GuessTheWord.wordlist.length);
+				word = LC0843GuessTheWord.wordlist[selection];
 			}
 			match = master.guess(word);
 			if (match == 6) {
@@ -35,7 +35,7 @@ public class LC843GuessTheWord {
 //				GuessTheWord843.wordlist = newList;
 //			} 
 			else {
-				LC843GuessTheWord.wordlist = match(word, master, match);
+				LC0843GuessTheWord.wordlist = match(word, master, match);
 				oldMatch = match;
 			}
 			k--;
@@ -45,7 +45,7 @@ public class LC843GuessTheWord {
 
 	public static String[] match(String guess, Master master, int match) {
 		ArrayList<String> list = new ArrayList<String>();
-		for (String word : LC843GuessTheWord.wordlist) {
+		for (String word : LC0843GuessTheWord.wordlist) {
 			if (!word.equals(guess)) {
 				int count = 0;
 				for (int k = 0; k < 6; k++) {
@@ -67,7 +67,7 @@ public class LC843GuessTheWord {
 
 
 	public static void main(String[] args) {
-		LC843GuessTheWord guess = new LC843GuessTheWord();
+		LC0843GuessTheWord guess = new LC0843GuessTheWord();
 		String[] wordlist =	{"gaxckt","trlccr","jxwhkz","ycbfps","peayuf","yiejjw","ldzccp","nqsjoa","qrjasy","pcldos","acrtag","buyeia","ubmtpj","drtclz","zqderp","snywek","caoztp","ibpghw","evtkhl","bhpfla","ymqhxk","qkvipb","tvmued","rvbass","axeasm","qolsjg","roswcb","vdjgxx","bugbyv","zipjpc","tamszl","osdifo","dvxlxm","iwmyfb","wmnwhe","hslnop","nkrfwn","puvgve","rqsqpq","jwoswl","tittgf","evqsqe","aishiv","pmwovj","sorbte","hbaczn","coifed","hrctvp","vkytbw","dizcxz","arabol","uywurk","ppywdo","resfls","tmoliy","etriev","oanvlx","wcsnzy","loufkw","onnwcy","novblw","mtxgwe","rgrdbt","ckolob","kxnflb","phonmg","egcdab","cykndr","lkzobv","ifwmwp","jqmbib","mypnvf","lnrgnj","clijwa","kiioqr","syzebr","rqsmhg","sczjmz","hsdjfp","mjcgvm","ajotcx","olgnfv","mjyjxj","wzgbmg","lpcnbj","yjjlwn","blrogv","bdplzs","oxblph","twejel","rupapy","euwrrz","apiqzu","ydcroj","ldvzgq","zailgu","xgqpsr","wxdyho","alrplq","brklfk"};
 		Master master = guess.new Master();
 

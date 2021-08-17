@@ -1,6 +1,6 @@
 package Problems;
 
-public class LC5LongestPalindrome {
+public class LC0005LongestPalindrome {
 	public static String longestPalindromeExpandCenter(String s) {
 
 		if (s.length() == 1) {
