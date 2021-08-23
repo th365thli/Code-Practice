@@ -1,4 +1,4 @@
-package Problems;
+package GoogleProblems;
 
 import java.util.Arrays;
 

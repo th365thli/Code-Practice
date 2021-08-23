@@ -1,4 +1,4 @@
-package Problems;
+package Blind75;
 
 public class LC0005LongestPalindrome {
 	public static String longestPalindromeExpandCenter(String s) {

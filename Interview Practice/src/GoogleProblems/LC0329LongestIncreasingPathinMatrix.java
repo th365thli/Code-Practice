@@ -1,4 +1,4 @@
-package Problems;
+package GoogleProblems;
 
 public class LC0329LongestIncreasingPathinMatrix {
 

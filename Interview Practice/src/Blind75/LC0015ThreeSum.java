@@ -1,4 +1,4 @@
-package Problems;
+package Blind75;
 
 import java.util.ArrayList;
 import java.util.Arrays;
