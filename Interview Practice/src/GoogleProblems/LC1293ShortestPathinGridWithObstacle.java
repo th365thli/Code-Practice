@@ -48,6 +48,7 @@ public class LC1293ShortestPathinGridWithObstacle {
 			//Once we checked all the neighboring nodes, we then increment steps, and then check the neighbors of 
 			//the previous neighbors. 
 			//In this case, the first and only "neighbor" is the source, so the the loop only iterates once for the "neighbor"
+			//In short, we need this inner for-loop to track steps. One set of neighbors is one step away. 
 			for (int i = 0; i < size; i++) {
 				// Get node from queue
 				coord = queue.poll();
@@ -92,6 +93,9 @@ public class LC1293ShortestPathinGridWithObstacle {
 				
 			}
 			//And why do we increment step after the for loop is done?
+			//Because the for loop represents neighbors one step away. We need
+			//the for loop to help track steps. Once the for loops is exited, that means you
+			//know you tracked nodes one step away. 
 			step++;
 		}
 		return -1;
