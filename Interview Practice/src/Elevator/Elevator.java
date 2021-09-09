@@ -1,34 +1,77 @@
 package Elevator;
 
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
+/**
+ * The Elevator class holding all Elevator functions
+ * 
+ * It uses a Dequeu structure to hold destinations. 
+ * It uses a PriorityQueue to hold and order in between upwards destinations
+ * It uses another PriorityQueue in reverse ordering to hold and order in between downwards destinations
+ * 
+ * @author Jerry
+ *
+ */
 public class Elevator {
 
 	private int currentFloor;
 	private boolean up = false;
 
 	public Deque<Integer> floorQueue = new LinkedList<Integer>();
-	public Deque<Integer> inBetween = new LinkedList<Integer>();
+	public PriorityQueue<Integer> inBetweenUp = new PriorityQueue<Integer>();
+	public PriorityQueue<Integer> inBetweenDown = new PriorityQueue<Integer>(Collections.reverseOrder());
+
 
 
 	public Elevator() {
 		System.out.println("Welcome to Zapata Computing");
-		this.currentFloor = 1;
-
-
-
+		System.out.println("Initializing Elevator...");
+		System.out.println("Elevator Ready! Begin selecting floors.");
+		this.currentFloor = 6;
 
 	}
 
-	
-	public void pressOutsideButton(int floor) throws InterruptedException {
+	/**
+	 * Add button press to queue along with direction. If direction equals 
+	 * elevator direction, and it's between current floor and destination, add to
+	 * inBetween pqueue
+	 * @param floor
+	 * @param direction
+	 * @throws Exception
+	 */
+	public void pressOutsideButton(int floor, String direction) throws Exception {
+		boolean personUp;
+		if (direction.equalsIgnoreCase("up")) {
+			personUp = true;
+		} else if (direction.equalsIgnoreCase("down")) {
+			personUp = false;
+		} else {
+			throw new Exception("Incorrect direction input: " + direction);
+		}
+
+		if (floor == 6 && direction.equals("up") || floor == 1 && direction.equalsIgnoreCase("down")) {
+			throw new Exception("Incorrect direction input for floor " + floor);
+		}
+
+
+		System.out.println("Someone at floor " + floor + " pressed " + direction);
+
 		synchronized (this) {
 			if (floorQueue.isEmpty()) {
 				floorQueue.addFirst(floor);
 			}
-			else if (up && floor < floorQueue.peekFirst() && floor > currentFloor || !up && floor > floorQueue.peekFirst() && floor < currentFloor ) {
-				inBetween.addFirst(floor);
+			//If the button direction equals current direction, and the floor pressed
+			//is between current floor and destination, add to inBetween dequeue
+			else if (up && personUp && floor < floorQueue.peekFirst() && floor > currentFloor) {
+				inBetweenUp.offer(floor);
+			} 
+			else if (!up && !personUp && floor > floorQueue.peekFirst() && floor < currentFloor) {
+				inBetweenDown.offer(floor);
+				//In all other cases, such as unequal direction, or outside range of 
+				//current and destination, add to the main dequeue
 			} else {
 				floorQueue.addLast(floor);
 			}
@@ -37,17 +80,21 @@ public class Elevator {
 
 	/**
 	 * Adds button press to queue. If it's a floor in between current and 
-	 * destination, adds to an "inBetween" queue
+	 * destination, adds to an "inBetween" pqueue
 	 * @param floor
 	 * @throws InterruptedException
 	 */
 	public void pressInsideButton (int floor) throws InterruptedException {
+		System.out.println("Someone inside pressed button " + floor);
 		synchronized (this) {
 			if (floorQueue.isEmpty()) {
 				floorQueue.addFirst(floor);
 			}
-			else if (up && floor < floorQueue.peekFirst() && floor > currentFloor || !up && floor > floorQueue.peekFirst() && floor < currentFloor ) {
-				inBetween.addFirst(floor);
+			else if (up && floor < floorQueue.peekFirst() && floor > currentFloor) {
+				inBetweenUp.offer(floor);
+			} 
+			else if (!up && floor > floorQueue.peekFirst() && floor < currentFloor) {
+				inBetweenDown.offer(floor);
 			} else {
 				floorQueue.addLast(floor);
 			}
@@ -56,7 +103,7 @@ public class Elevator {
 
 
 	/**
-	 * 
+	 * Constant loop that checks if queue is occupied. If so, "move" the elevator
 	 * @throws InterruptedException
 	 */
 	public void startElevator() throws InterruptedException {
@@ -72,21 +119,17 @@ public class Elevator {
 			if (destination != -1) {
 				if (destination > currentFloor) {
 					up = true;
-					System.out.println("Moving up to floor " + destination);
 				} else {
 					up = false;
-					System.out.println("Moving down to floor " + destination);
 				}
-				
-				
+
 				//We want to check the inBetween queue to see if any floors were added enroute
 				checkInBetween(destination);
-				
-				
+
 				currentFloor = destination;
-				System.out.println("Stopping at floor " + destination);
+				System.out.println("Arrived at floor " + destination);
 				floorQueue.removeFirst();
-				Thread.sleep(3000);
+				Thread.sleep(10000);
 
 			}
 
@@ -101,24 +144,32 @@ public class Elevator {
 	 */
 	public void checkInBetween(int destination) throws InterruptedException {
 		
+		//Sleep the thread to simulate movement. In this time
+		//in between floors can be added
+		Thread.sleep(5000);
 		long t= System.currentTimeMillis();
-		long end = t+5000;
+		long end = t+1000;
 		int current;
 		while(System.currentTimeMillis() < end) {
 			current = destination;
 			synchronized (this) {
-				if (!inBetween.isEmpty()) {
-					current = inBetween.peek();
+				if (!inBetweenUp.isEmpty() && up) {
+					current = inBetweenUp.peek(); 
+				} 
+				else if (!inBetweenDown.isEmpty() && !up) {
+					current = inBetweenDown.peek();
 				}
 			}
 			if (current != destination) {
+				//System.out.println("up: " + inBetweenUp + " down: " + inBetweenDown + " " + "main: " + floorQueue);
+				//end = end + 5000;
+				//Thread.sleep(5000);
+				System.out.println("Arrived at floor " + current);
 				currentFloor = current;
-				System.out.println("Moving to floor " + current);
-				end = end + 3000;
-				Thread.sleep(3000);
-				System.out.println("Stopping at floor " + current);
-				end = end + 3000;
-				inBetween.removeLast();
+				end = end + 10000;
+				Thread.sleep(10000);
+				if (up) { inBetweenUp.poll(); } 
+				else { inBetweenDown.poll();  }
 			}
 		}
 	}
