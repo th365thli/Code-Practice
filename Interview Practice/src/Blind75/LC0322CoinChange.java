@@ -36,34 +36,34 @@ public class LC0322CoinChange {
 	//	        
 	//	    }
 	//	  
-	//	  public static int helper(int[] coins, int amount) {
-	//		  
-	//		  	if (amount < 0) {
-	//		  		return -1;
-	//		  	}
-	//		  	else if (amount == 0) {
-	//	      		return 0;
-	//	      	}
-	//		  	else if (dp[amount] != 0) {
-	//		  		return dp[amount];
-	//		  	}
-	//	    
-	//	      	int min = Integer.MAX_VALUE;
-	//	        for (int i = 0; i < coins.length; i++) {
-	//	        	int temp = helper(coins, amount - coins[i]);
-	//	        	if (temp > -1) {
-	//	        		temp++;
-	//	        		min = Math.min(min, temp);
-	//	        	}
-	//	        }
-	//	        
-	//	        if (min == Integer.MAX_VALUE) {
-	//	        	return dp[amount] = -1;
-	//	        }
-	//	        return dp[amount] = min;
-	//		  
-	//		  
-	//	  }
+		  public static int helper(int[] coins, int amount) {
+			  
+			  	if (amount < 0) {
+			  		return -1;
+			  	}
+			  	else if (amount == 0) {
+		      		return 0;
+		      	}
+			  	else if (dp[amount] != 0) {
+			  		return dp[amount];
+			  	}
+		    
+		      	int min = Integer.MAX_VALUE;
+		        for (int i = 0; i < coins.length; i++) {
+		        	int temp = helper(coins, amount - coins[i]);
+		        	if (temp > -1) {
+		        		temp++;
+		        		min = Math.min(min, temp);
+		        	}
+		        }
+		        
+		        if (min == Integer.MAX_VALUE) {
+		        	return dp[amount] = -1;
+		        }
+		        return dp[amount] = min;
+			  
+			  
+		  }
 	//	  
 	//	  
 	public static void main(String... args) {
