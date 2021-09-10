@@ -4,9 +4,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The Elevator class holding all Elevator functions
@@ -164,21 +161,10 @@ public class Elevator {
 		
 		//Sleep the thread to simulate movement. In this time
 		//in between floors can be added
-		ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-		exec.scheduleAtFixedRate(new Runnable() {
-		  int count = 1;
-		  @Override
-		  public void run() {
-			 System.out.print("\r" + count);
-			 count++;
-		  }
-		}, 0, 1, TimeUnit.SECONDS);
 		Thread.sleep(4500);
 		long t= System.currentTimeMillis();
 		long end = t+500;
 		int current;
-		exec.shutdown();
-		System.out.print("\n");
 		while(System.currentTimeMillis() < end) {
 			current = destination;
 			synchronized (this) {
@@ -199,6 +185,7 @@ public class Elevator {
 			}
 		}
 	}
+	
 }
 
 
